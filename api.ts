@@ -19,7 +19,7 @@ router.get("/", (_req, res) => {
 router.get("/users", (_req, res) => {
   res.send(users);
 });
-router.get("/users/:user", (_req, res) => {
+router.get("/users/:user", (req, res) => {
   if (req?.params?.user) {
     const found = users.find((item) =>
       item.name.toLowerCase() === req.params.user.toLowerCase()
@@ -34,7 +34,7 @@ router.get("/users/:user", (_req, res) => {
 router.get("/posts", (_req, res) => {
   res.send(posts);
 });
-router.get("/posts/:post", (_req, res) => {
+router.get("/posts/:post", (req, res) => {
   if (req?.params?.post) {
     const found = posts.find((item) =>
       item.name.toLowerCase() === req.params.post.toLowerCase()
