@@ -4,12 +4,11 @@ import users from "./users.json" with { type: "json" };
 import posts from "./posts.json" with { type: "json" };
 // import { json } from "express";
 // unused right now!
-import editjson from "npm:edit-json-file"
 
 import time from "npm:unix-timestamp";
 
 router.post('/register', (_req, res) => {
-  console.log(time.now());
+  console.log(time.now()); // testing
   req.body;
   res.send("done");
 });
