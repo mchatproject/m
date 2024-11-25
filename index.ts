@@ -4,10 +4,10 @@ import express from "npm:express@4.18.2";
 const app = express();
 import api from "./api.ts" ;
 app.use("/api", api);
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.sendFile(`/home/runner/mservicereplit/landing/`)
 });
-app.get("/apiref", (req, res) => {
+app.get("/apiref", (_req, res) => {
   res.send("not set up")
   // res.sendFile(`/home/runner/mservicereplit/apiref.html`)
 });
