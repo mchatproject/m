@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: blanchedalmond;
+      font-family: "Geist Mono";
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+    }
+
+    p {
+      font-size: 20px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>M: Api reference.</h1>
+
+
+<p>/api/users/page/{num}</p>
+<h2>Serves user data for page {num}, you can use GET on this.</h2>
+  
+<p>/api/users/</p>
+<h2>Serves ALL user data, insanely laggy. [You can also use get on this, You shouldnt though. You really shouldnt.]</h2>
+
+<p>/api/users/{user}</p>
+<h2>Serves {user}'s user data, you can use GET on this.</h2>
+  
+<p>/api/</p>
+<h2>Useless.</h2>
+  
+<p><a href="/">home</a></p>
+</body>
+</html>

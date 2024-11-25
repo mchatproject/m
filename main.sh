@@ -1,0 +1,1 @@
+deno run --allow-all --lock=lock.json --lock-write index.ts
