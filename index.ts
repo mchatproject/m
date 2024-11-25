@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   res.sendFile(`/home/runner/mservicereplit/landing/`)
 });
 app.get("/apiref", (req, res) => {
-  res.Send("not set up")
+  res.send("not set up")
   // res.sendFile(`/home/runner/mservicereplit/apiref.html`)
 });
 
