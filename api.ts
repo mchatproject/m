@@ -1,25 +1,26 @@
 import express from "npm:express@4.18.2";
 const router = express.Router()
-import users from "./users.json" assert { type: "json" };
-import posts from "./posts.json" assert { type: "json" };
-import { json } from "express";
+import users from "./users.json" with { type: "json" };
+import posts from "./posts.json" with { type: "json" };
+// import { json } from "express";
+// unused right now!
 import editjson from "npm:edit-json-file"
 
 import time from "npm:unix-timestamp";
 
-router.post('/register', (req, res) => {
+router.post('/register', (_req, res) => {
   console.log(time.now());
   req.body;
   res.send("done");
 });
 
-router.get("/", (req, res) => {
+router.get("/", (_req, res) => {
   res.send("Invalid api service.");
 });
-router.get("/users", (req, res) => {
+router.get("/users", (_req, res) => {
   res.send(users);
 });
-router.get("/users/:user", (req, res) => {
+router.get("/users/:user", (_req, res) => {
   if (req?.params?.user) {
     const found = users.find((item) =>
       item.name.toLowerCase() === req.params.user.toLowerCase()
@@ -31,10 +32,10 @@ router.get("/users/:user", (req, res) => {
     }
   }
 });
-router.get("/posts", (req, res) => {
+router.get("/posts", (_req, res) => {
   res.send(posts);
 });
-router.get("/posts/:post", (req, res) => {
+router.get("/posts/:post", (_req, res) => {
   if (req?.params?.post) {
     const found = posts.find((item) =>
       item.name.toLowerCase() === req.params.post.toLowerCase()
