@@ -4,11 +4,15 @@ const router = express.Router();
 
 type User = {
   name: string;
+  seedid: number; // ui shit
+  displayname: string;
   //TODO - add more stuff to the type
 };
 
 type Post = {
-  user: string
+  user: string;
+  content: string;
+  // mentions:   {idk yet}
 }
 
 const loadIfExists = async (name: string, contents: string) => {
