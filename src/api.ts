@@ -13,6 +13,12 @@ type User = {
   //TODO - add more stuff to the type
 };
 
+type usercreds = {
+  user: string;
+  token: string; // resets every time the password is reset
+  password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk
+}
+
 type Post = {
   user: string;
   content: string;
