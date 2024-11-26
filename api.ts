@@ -15,8 +15,17 @@ type Post = {
   name: string;
 };
 
-const users: User[] = JSON.parse(fs.readFileSync("users.json").toString());
-const posts: Post[] = JSON.parse(fs.readFileSync("posts.json").toString());
+const loadIfExists = async (name: string, contents: string) => {
+  try {
+    return await Deno.readTextFile(name);
+  } catch {
+    await Deno.writeTextFile(name, contents);
+    return contents;
+  }
+};
+
+const users: User[] = JSON.parse(await loadIfExists("users.json", "[]"));
+const posts: Post[] = JSON.parse(await loadIfExists("posts.json", "[]"));
 
 router.post("/register", (_req, res) => {
   console.log(Date.now()); // testing
