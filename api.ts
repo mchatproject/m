@@ -1,4 +1,5 @@
-import express from "express";
+// @deno-types="npm:@types/express@4.17.15"
+import express from "npm:express";
 import fs from "node:fs"
 const router = express.Router()
 // import { json } from "express";
@@ -17,11 +18,8 @@ type Post = {
 const users: User[] = JSON.parse(fs.readFileSync("users.json").toString())
 const posts: Post[] = JSON.parse(fs.readFileSync("posts.json").toString())
 
-import time from "unix-timestamp";
-
 router.post('/register', (_req, res) => {
-  // bruh, you can just Math.floor(Number(new Date()) / 1000)
-  console.log(time.now()); // testing
+  console.log(Date.now()); // testing
   // req.body;
   res.send("done");
 });
