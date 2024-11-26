@@ -2,14 +2,15 @@
 import express from "npm:express";
 
 const app = express();
-import api from "./api.ts" ;
+import api from "./api.ts";
 app.use("/api", api);
 app.get("/", (_req, res) => {
-  res.sendFile(`/home/runner/mservicereplit/landing/`)
+  res.send("not set up");
+  // res.sendFile(`../pages/landing.html`);
 });
 app.get("/apiref", (_req, res) => {
-  res.send("not set up")
-  // res.sendFile(`/home/runner/mservicereplit/apiref.html`)
+  res.send("not set up");
+  // res.sendFile(`../pages/apiref.html`)
 });
 
 app.listen(8000);

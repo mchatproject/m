@@ -1,26 +1,30 @@
-import express from "express";
-import fs from "node:fs"
-const router = express.Router()
-// import { json } from "express";
-// unused right now!
+// @deno-types="npm:@types/express@4.17.15"
+import express from "npm:express";
+const router = express.Router();
 
 type User = {
   name: string;
   //TODO - add more stuff to the type
-}
+};
 
 type Post = {
   user: string
 }
 
-const users: User[] = JSON.parse(fs.readFileSync("users.json").toString())
-const posts: Post[] = JSON.parse(fs.readFileSync("posts.json").toString())
+const loadIfExists = async (name: string, contents: string) => {
+  try {
+    return await Deno.readTextFile(name);
+  } catch {
+    await Deno.writeTextFile(name, contents);
+    return contents;
+  }
+};
 
-import time from "unix-timestamp";
+const users: User[] = JSON.parse(await loadIfExists("data/users.json", "[]"));
+const posts: Post[] = JSON.parse(await loadIfExists("data/posts.json", "[]"));
 
-router.post('/register', (_req, res) => {
-  // bruh, you can just Math.floor(Number(new Date()) / 1000)
-  console.log(time.now()); // testing
+router.post("/register", (_req, res) => {
+  console.log(Date.now()); // testing
   // req.body;
   res.send("done");
 });
@@ -33,8 +37,8 @@ router.get("/users", (_req, res) => {
 });
 router.get("/users/:user", (req, res) => {
   if (req?.params?.user) {
-    const found = users.find((item) =>
-      item.name.toLowerCase() === req.params.user.toLowerCase()
+    const found = users.find(
+      (item) => item.name.toLowerCase() === req.params.user.toLowerCase()
     );
     if (found) {
       res.send(found);
