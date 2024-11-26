@@ -21,8 +21,8 @@ const loadIfExists = async (name: string, contents: string) => {
   }
 };
 
-const users: User[] = JSON.parse(await loadIfExists("users.json", "[]"));
-const posts: Post[] = JSON.parse(await loadIfExists("posts.json", "[]"));
+const users: User[] = JSON.parse(await loadIfExists("data/users.json", "[]"));
+const posts: Post[] = JSON.parse(await loadIfExists("data/posts.json", "[]"));
 
 router.post("/register", (_req, res) => {
   console.log(Date.now()); // testing
