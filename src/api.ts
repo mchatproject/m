@@ -6,6 +6,9 @@ type User = {
   name: string;
   seedid: number; // ui shit
   displayname: string;
+  friends: string[];
+  bestfriends: string[];
+  creationdate: number;
   //TODO - add more stuff to the type
 };
 
