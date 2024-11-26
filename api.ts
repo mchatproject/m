@@ -10,8 +10,7 @@ type User = {
 }
 
 type Post = {
-  // erm, what? posts have names? well ok but that might be a bug
-  name: string
+  user: string
 }
 
 const users: User[] = JSON.parse(fs.readFileSync("users.json").toString())
@@ -49,9 +48,8 @@ router.get("/posts", (_req, res) => {
 });
 router.get("/posts/:post", (req, res) => {
   if (req?.params?.post) {
-    // erm, what? posts have names? well ok but that might be a bug
     const found = posts.find((item) =>
-      item.name.toLowerCase() === req.params.post.toLowerCase()
+      item.user.toLowerCase() === req.params.post.toLowerCase()
     );
     if (found) {
       res.send(found);
