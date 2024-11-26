@@ -1,0 +1,5 @@
+Hi!
+so uh i did a lot of stuff          
+1. i installed the modules bc imo it's kinda easier to manage them that way and uh vs code cant find the modules if i dont install them       
+2. i added typing for the posts and users
+3. i also made it use fs for reading the db so that typing is easier

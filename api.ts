@@ -1,15 +1,28 @@
-import express from "npm:express@4.18.2";
+import express from "express";
+import fs from "node:fs"
 const router = express.Router()
-import users from "./users.json" with { type: "json" };
-import posts from "./posts.json" with { type: "json" };
 // import { json } from "express";
 // unused right now!
 
-import time from "npm:unix-timestamp";
+type User = {
+  name: string;
+  //TODO - add more stuff to the type
+}
+
+type Post = {
+  // erm, what? posts have names? well ok but that might be a bug
+  name: string
+}
+
+const users: User[] = JSON.parse(fs.readFileSync("users.json").toString())
+const posts: Post[] = JSON.parse(fs.readFileSync("posts.json").toString())
+
+import time from "unix-timestamp";
 
 router.post('/register', (_req, res) => {
+  // bruh, you can just Math.floor(Number(new Date()) / 1000)
   console.log(time.now()); // testing
-  req.body;
+  // req.body;
   res.send("done");
 });
 
@@ -36,6 +49,7 @@ router.get("/posts", (_req, res) => {
 });
 router.get("/posts/:post", (req, res) => {
   if (req?.params?.post) {
+    // erm, what? posts have names? well ok but that might be a bug
     const found = posts.find((item) =>
       item.name.toLowerCase() === req.params.post.toLowerCase()
     );
