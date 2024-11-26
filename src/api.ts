@@ -12,7 +12,7 @@ type User = {
 type Post = {
   user: string;
   content: string;
-  // mentions:   {idk yet}
+  mentions: string[];
 }
 
 const loadIfExists = async (name: string, contents: string) => {
