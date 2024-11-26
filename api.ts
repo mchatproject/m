@@ -1,9 +1,6 @@
 // @deno-types="npm:@types/express@4.17.15"
 import express from "npm:express";
-import fs from "node:fs";
 const router = express.Router();
-// import { json } from "express";
-// unused right now!
 
 type User = {
   name: string;
