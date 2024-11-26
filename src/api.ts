@@ -1,7 +1,8 @@
 // @deno-types="npm:@types/express@4.17.15"
 import express from "npm:express";
 const router = express.Router();
-
+// secret:
+// mayonnaise prime
 type User = {
   name: string;
   seedid: number; // ui shit
