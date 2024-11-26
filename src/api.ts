@@ -13,7 +13,7 @@ type User = {
   //TODO - add more stuff to the type
 };
 
-type usercreds = {
+type UserCreds = {
   user: string;
   token: string; // resets every time the password is reset
   password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk
@@ -36,6 +36,7 @@ const loadIfExists = async (name: string, contents: string) => {
 
 const users: User[] = JSON.parse(await loadIfExists("data/users.json", "[]"));
 const posts: Post[] = JSON.parse(await loadIfExists("data/posts.json", "[]"));
+const logindata: UserCreds[] = JSON.parse(await loadIfExists("data/login.json", "[]"));
 
 router.post("/register", (_req, res) => {
   console.log(Date.now()); // testing
