@@ -1,9 +1,22 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@std/fs@*": "1.0.6",
+    "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:@types/express@4.17.15": "4.17.15",
     "npm:@types/node@*": "22.5.4",
     "npm:express@*": "4.21.1"
+  },
+  "jsr": {
+    "@std/fs@1.0.6": {
+      "integrity": "42b56e1e41b75583a21d5a37f6a6a27de9f510bcd36c0c85791d685ca0b85fa2",
+      "dependencies": [
+        "jsr:@std/path"
+      ]
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    }
   },
   "npm": {
     "@types/body-parser@1.19.5": {

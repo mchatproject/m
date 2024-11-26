@@ -1,5 +1,7 @@
 // @deno-types="npm:@types/express@4.17.15"
 import express from "npm:express";
+import * as fs from "jsr:@std/fs"; // have to get an std to check if something exists goddamn
+
 const router = express.Router();
 // secret:
 // mayonnaise prime
@@ -34,11 +36,13 @@ const loadIfExists = async (name: string, contents: string) => {
   }
 };
 
+if (!fs.existsSync("data")) Deno.mkdirSync("data");
+
 const users: User[] = JSON.parse(await loadIfExists("data/users.json", "[]"));
 const posts: Post[] = JSON.parse(await loadIfExists("data/posts.json", "[]"));
 // const logindata: UserCreds[] = JSON.parse(await loadIfExists("data/login.json", "[]"));
 
-router.post("/register", (_req, res) => {
+router.post("/register", (_req, res: ) => {
   console.log(Date.now()); // testing
   // req.body;
   res.send("done");
