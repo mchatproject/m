@@ -42,7 +42,7 @@ const users: User[] = JSON.parse(await loadIfExists("data/users.json", "[]"));
 const posts: Post[] = JSON.parse(await loadIfExists("data/posts.json", "[]"));
 // const logindata: UserCreds[] = JSON.parse(await loadIfExists("data/login.json", "[]"));
 
-router.post("/register", (_req, res: ) => {
+router.post("/register", (_req, res) => {
   console.log(Date.now()); // testing
   // req.body;
   res.send("done");

@@ -3,6 +3,9 @@ import express from "npm:express";
 
 const app = express();
 import api from "./api.ts";
+
+app.use(express.json);
+
 app.use("/api", api);
 app.get("/", (_req, res) => {
   res.send("not set up");
