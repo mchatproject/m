@@ -40,6 +40,11 @@ function Uint8ify(text: string): Uint8Array {
 export const users: { [key: string]: User } = JSON.parse(await loadIfExists("data/users.json", "{}"));
 const creds: { [key: string]: UserCreds } = JSON.parse(await loadIfExists("data/creds.json", "{}"));
 
+/** Genertes a token */
+function genToken(): string {
+    return crypro.hash('sha256', crypro.randomBytes(15))
+}
+
 /** Syncs the databases */
 function syncDBs(): void {
     Deno.writeFileSync("data/users.json", Uint8ify(JSON.stringify(users)))
@@ -53,18 +58,14 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
     return users[id];
 }
 
-/** Genertes a token */
-function genToken(): string {
-    return crypro.hash('sha256', crypro.randomBytes(15))
-}
-
 /** Create a user */
 export function createUser(username: string, password: string) {
     if (Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
     if (username.length > 20) throw new Error("Username too long");
     if (username.length > 3) throw new Error("Username too short");
+    if (username.match(/[^A-z0-9_\-\.]/g)) throw new Error("Username invalid");
     const user: User = {
-        name: username,
+        name: username.toLowerCase(),
         friends: [],
         bestfriends: [],
         creationdate: Number(new Date()),
@@ -81,6 +82,7 @@ export function createUser(username: string, password: string) {
     syncDBs()
 }
 
+/** Check if the password is correct */
 export function checkPassword(id: string, password: string): boolean {
     if(!creds[id]) throw new Error("User not found");
     return crypro.hash("sha256", password).toString() == creds[id].password
