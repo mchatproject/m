@@ -12,16 +12,16 @@ type UserCreds = {
 // secret:
 // mayonnaise prime
 export type User = {
-  name: string;
-  seedid: number; // ui shit
-  displayname: string;
-  friends: string[];
-  bestfriends: string[];
-  creationdate: number;
-  //TODO - add more stuff to the type
+    name: string;
+    seedid: number; // ui shit
+    displayname: string;
+    friends: string[];
+    bestfriends: string[];
+    creationdate: number;
+    //TODO - add more stuff to the type
 };
 
-async function loadIfExists (name: string, contents: string) {
+async function loadIfExists(name: string, contents: string) {
     try {
         return await Deno.readTextFile(name);
     } catch {
@@ -32,13 +32,13 @@ async function loadIfExists (name: string, contents: string) {
 
 /** Convert text to a Uint8Array */
 function Uint8ify(text: string): Uint8Array {
-    const numarr: number[] = text.split('').map<number>((char: string): number => {return char.charCodeAt(0)});
+    const numarr: number[] = text.split('').map<number>((char: string): number => { return char.charCodeAt(0) });
     return Uint8Array.from(numarr)
 }
 
 // Bsicaly says that the object will have keys of string and values of user
-export const users: {[key: string]: User} = JSON.parse(await loadIfExists("data/users.json", "{}"));
-const creds: {[key: string]: UserCreds} = JSON.parse(await loadIfExists("data/creds.json", "{}"));
+export const users: { [key: string]: User } = JSON.parse(await loadIfExists("data/users.json", "{}"));
+const creds: { [key: string]: UserCreds } = JSON.parse(await loadIfExists("data/creds.json", "{}"));
 
 /** Syncs the databases */
 function syncDBs(): void {
@@ -49,7 +49,7 @@ function syncDBs(): void {
 // why cant i just use {} to mean empty object
 /** Get a user by their uuid */
 export function getUser(id: string): User | Record<string | number | symbol, never> {
-    if(!users[id]) return {};
+    if (!users[id]) return {};
     return users[id];
 }
 
@@ -60,9 +60,9 @@ function genToken(): string {
 
 /** Create a user */
 export function createUser(username: string, password: string) {
-    if(Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
-    if(username.length > 20) throw new Error("Username too long");
-    if(username.length > 3) throw new Error("Username too short");
+    if (Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
+    if (username.length > 20) throw new Error("Username too long");
+    if (username.length > 3) throw new Error("Username too short");
     const user: User = {
         name: username,
         friends: [],
