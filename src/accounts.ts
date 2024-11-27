@@ -51,7 +51,7 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
 }
 
 function genToken(): string {
-    throw new Error("unimplemented")
+    return crypro.hash('sha256', crypro.randomBytes(15))
 }
 
 export function createUser(username: string, password: string) {
@@ -69,7 +69,7 @@ export function createUser(username: string, password: string) {
     const id = genID();
     users[id] = user;
     creds[id] = {
-        password: crypro.hash("sha1", password).toString(),
+        password: crypro.hash("sha256", password).toString(),
         token: genToken(),
         user: username
     }
