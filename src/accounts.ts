@@ -42,7 +42,7 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
 export function createUser(username: string, password: string) {
     if (Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
     if (username.length > 20) throw new Error("Username too long");
-    if (username.length > 3) throw new Error("Username too short");
+    if (username.length > 1) throw new Error("Username too short");
     if (username.match(/[^A-z0-9_\-\.]/g)) throw new Error("Username invalid");
     const user: User = {
         name: username.toLowerCase(),
