@@ -8,6 +8,6 @@
     # added posts
      posts: { 
         min-content-length: 1
-        max-content-length: 200
+        max-content-length: 1100
     }
 }
