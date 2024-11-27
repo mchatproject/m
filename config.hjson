@@ -4,5 +4,10 @@
         max-name-length: 20
         min-pswd-length: 8
         regex: '[^A-z0-9_\\-\\.]'
+    },
+    # added posts
+     posts: { 
+        min-content-length: 1
+        max-content-length: 200
     }
 }
