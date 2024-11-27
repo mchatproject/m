@@ -5,7 +5,7 @@ import crypro from "node:crypto";
 import DB from "./lib/db.ts";
 import { config } from "./config.ts";
 
-type UserCreds = {
+export type UserCreds = {
     user: string;
     token: string; // resets every time the password is reset
     password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk
@@ -40,8 +40,8 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
 }
 
 /** Create a user */
-export function createUser(username: string, password: string, write:boolean=true) {
-    if (Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
+export function createUser(username: string, password: string, write:boolean=true, _users: DB<User>=users, _creds: DB<UserCreds>=creds) {
+    if (Object.values(_users).find(u => u.name == username)) throw new Error("Account already exists");
     if (username.length > config.accounts['max-name-length']) throw new Error("Username too long");
     if (username.length < config.accounts['min-name-length']) throw new Error("Username too short");
     if (password.length < config.accounts['min-pswd-length']) throw new Error("Password too short");
@@ -56,8 +56,8 @@ export function createUser(username: string, password: string, write:boolean=tru
     };
     const id = genID();
     if (!write) return {user, creds}
-    users.set(id, user);
-    creds.set(id, {
+    _users.set(id, user);
+    _creds.set(id, {
         password: crypro.hash("sha256", password).toString(),
         token: genToken(),
         user: username

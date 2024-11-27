@@ -16,7 +16,12 @@ function Uint8ify(text: string): Uint8Array {
 export default class DB<T> {
     data: {[key: string]: T} = {};
     filename: string;
-    constructor (filename: string) {
+    write: boolean = false;
+    constructor (filename: string, write:boolean=true) {
+        if(!write) {
+            this.data = {}
+            this.write = true;
+        }
         this.filename = filename
         loadIfExists(filename, '{}').then(d => this.data = JSON.parse(d.toString()));
     }
@@ -31,6 +36,7 @@ export default class DB<T> {
 
     set(key: string, value: T) {
         this.data[key] = value;
+        if(!this.write) return;
         Deno.writeFileSync(this.filename, Uint8ify(JSON.stringify(this.data)))
     }
 }
