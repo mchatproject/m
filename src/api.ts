@@ -5,13 +5,6 @@ import * as accounts from "./accounts.ts";
 
 const router = express.Router();
 
-
-type UserCreds = {
-  user: string;
-  token: string; // resets every time the password is reset
-  password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk
-}
-
 type Post = {
   user: string;
   content: string;
