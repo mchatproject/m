@@ -7,6 +7,7 @@
     },
     # added posts
     # hour was here
+    
      posts: { 
         min-content-length: 1
         max-content-length: 1100
