@@ -80,3 +80,8 @@ export function createUser(username: string, password: string) {
     }
     syncDBs()
 }
+
+export function checkPassword(id: string, password: string): boolean {
+    if(!creds[id]) throw new Error("User not found");
+    return crypro.hash("sha256", password).toString() == creds[id].password
+}
