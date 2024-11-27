@@ -1,0 +1,8 @@
+{
+    accounts: {
+        min-name-length: 1
+        max-name-length: 20
+        min-pswd-length: 8
+        regex: '[^A-z0-9_\\-\\.]'
+    }
+}

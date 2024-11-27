@@ -3,6 +3,7 @@
 import { v4 as genID } from "npm:uuid";
 import crypro from "node:crypto";
 import DB from "./lib/db.ts";
+import { config } from "./config.ts";
 
 type UserCreds = {
     user: string;
@@ -39,11 +40,12 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
 }
 
 /** Create a user */
-export function createUser(username: string, password: string) {
+export function createUser(username: string, password: string, write:boolean=true) {
     if (Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
-    if (username.length > 20) throw new Error("Username too long");
-    if (username.length > 1) throw new Error("Username too short");
-    if (username.match(/[^A-z0-9_\-\.]/g)) throw new Error("Username invalid");
+    if (username.length > config.accounts['max-name-length']) throw new Error("Username too long");
+    if (username.length < config.accounts['min-name-length']) throw new Error("Username too short");
+    if (password.length < config.accounts['min-pswd-length']) throw new Error("Password too short");
+    if (username.match(new RegExp(config.accounts.regex, 'g'))) throw new Error("Username invalid");
     const user: User = {
         name: username.toLowerCase(),
         friends: [],
@@ -53,6 +55,7 @@ export function createUser(username: string, password: string) {
         seedid: 0 // TODO: figure out what this is
     };
     const id = genID();
+    if (!write) return {user, creds}
     users.set(id, user);
     creds.set(id, {
         password: crypro.hash("sha256", password).toString(),
