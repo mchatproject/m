@@ -34,9 +34,9 @@ function genToken(): string {
 
 // why cant i just use {} to mean empty object
 /** Get a user by their uuid */
-export function getUser(id: string): User | Record<string | number | symbol, never> {
-    if (!users.has(id)) return {};
-    return users.get(id);
+export function getUser(id: string, _users: DB<User>=users): User | Record<string | number | symbol, never> {
+    if (!_users.has(id)) return {};
+    return _users.get(id);
 }
 
 /** Create a user */
@@ -65,7 +65,7 @@ export function createUser(username: string, password: string, write:boolean=tru
 }
 
 /** Check if the password is correct */
-export function checkPassword(id: string, password: string): boolean {
-    if(!creds.get(id)) throw new Error("User not found");
-    return crypro.hash("sha256", password).toString() == creds.get(id).password
+export function checkPassword(id: string, password: string, _creds: DB<UserCreds>=creds): boolean {
+    if(!_creds.get(id)) throw new Error("User not found");
+    return crypro.hash("sha256", password).toString() == _creds.get(id).password
 }

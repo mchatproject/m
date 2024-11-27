@@ -46,3 +46,18 @@ Deno.test({
         }, "createUser() acceptd account wit name dat alr existing")
     }
 })
+
+
+Deno.test({
+    name: "test account creation",
+
+    fn: ()=> {
+        const testDBs = {
+            user: new DB<accounts.User>("", false),
+            creds: new DB<accounts.UserCreds>("", false)
+        }
+        accounts.createUser("user1", "password", true, testDBs.user, testDBs.creds)
+        assert(accounts.getUser('user1', testDBs.user).name == 'user1')
+        assert(accounts.checkPassword('user1', 'password', testDBs.creds))
+    }
+})
