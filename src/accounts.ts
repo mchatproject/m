@@ -1,5 +1,7 @@
 // NOTE - yes, ik the entire codebase so far has been in 2 indent but uh i like 4 indent
 
+import { v4 as genID } from "npm:uuid";
+
 // secret:
 // mayonnaise prime
 export type User = {
@@ -40,11 +42,6 @@ export function getUser(id: string): User | Record<string | number | symbol, nev
     if(!users[id]) return {};
     return users[id];
 }
-
-function genID(): string {
-    throw new Error("unimplemented")
-}
-
 
 export function createUser(username: string, password: string) {
     if(Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
