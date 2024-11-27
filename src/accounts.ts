@@ -21,9 +21,18 @@ async function loadIfExists (name: string, contents: string) {
     }
 };
 
+function Uint8ify(text: string): Uint8Array {
+    const numarr: number[] = text.split('').map<number>((char: string): number => {return char.charCodeAt(0)});
+    return Uint8Array.from(numarr)
+}
+
 // Bsicaly says that the object will have keys of string and values of user
 export const users: {[key: string]: User} = JSON.parse(await loadIfExists("data/users.json", "{}"));
 const creds: {[key: string]: User} = JSON.parse(await loadIfExists("data/creds.json", "{}"));
+
+function syncDB(): void {
+    Deno.writeFileSync("data/users.json", Uint8ify(JSON.stringify(users)))
+}
 
 // why cant i just use {} to mean empty object
 export function getUser(id: string): User | Record<string | number | symbol, never> {
@@ -35,10 +44,6 @@ function genID(): string {
     throw new Error("unimplemented")
 }
 
-function Uint8ify(text: string): Uint8Array {
-    const numarr: number[] = text.split('').map<number>((char: string): number => {return char.charCodeAt(0)});
-    return Uint8Array.from(numarr)
-}
 
 export function createUser(username: string, password: string) {
     if(Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
@@ -52,5 +57,5 @@ export function createUser(username: string, password: string) {
     };
     const id = genID();
     users[id] = user;
-    Deno.writeFileSync("data/users.json", Uint8ify(JSON.stringify(users)))
+    syncDB()
 }
