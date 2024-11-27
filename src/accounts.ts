@@ -30,6 +30,7 @@ async function loadIfExists (name: string, contents: string) {
     }
 };
 
+/** Convert text to a Uint8Array */
 function Uint8ify(text: string): Uint8Array {
     const numarr: number[] = text.split('').map<number>((char: string): number => {return char.charCodeAt(0)});
     return Uint8Array.from(numarr)
@@ -39,21 +40,25 @@ function Uint8ify(text: string): Uint8Array {
 export const users: {[key: string]: User} = JSON.parse(await loadIfExists("data/users.json", "{}"));
 const creds: {[key: string]: UserCreds} = JSON.parse(await loadIfExists("data/creds.json", "{}"));
 
+/** Syncs the databases */
 function syncDBs(): void {
     Deno.writeFileSync("data/users.json", Uint8ify(JSON.stringify(users)))
     Deno.writeFileSync("data/creds.json", Uint8ify(JSON.stringify(creds)))
 }
 
 // why cant i just use {} to mean empty object
+/** Get a user by their uuid */
 export function getUser(id: string): User | Record<string | number | symbol, never> {
     if(!users[id]) return {};
     return users[id];
 }
 
+/** Genertes a token */
 function genToken(): string {
     return crypro.hash('sha256', crypro.randomBytes(15))
 }
 
+/** Create a user */
 export function createUser(username: string, password: string) {
     if(Object.values(users).find(u => u.name == username)) throw new Error("Account already exists");
     if(username.length > 20) throw new Error("Username too long");
