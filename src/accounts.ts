@@ -30,8 +30,9 @@ function Uint8ify(text: string): Uint8Array {
 export const users: {[key: string]: User} = JSON.parse(await loadIfExists("data/users.json", "{}"));
 const creds: {[key: string]: User} = JSON.parse(await loadIfExists("data/creds.json", "{}"));
 
-function syncDB(): void {
+function syncDBs(): void {
     Deno.writeFileSync("data/users.json", Uint8ify(JSON.stringify(users)))
+    Deno.writeFileSync("data/creds.json", Uint8ify(JSON.stringify(creds)))
 }
 
 // why cant i just use {} to mean empty object
@@ -57,5 +58,5 @@ export function createUser(username: string, password: string) {
     };
     const id = genID();
     users[id] = user;
-    syncDB()
+    syncDBs()
 }
