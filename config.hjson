@@ -7,7 +7,12 @@
     },
     # added posts
     # hour was here
-    
+    # cheesewhisk3rs being the only mod is so fucking funny lol
+    important: {
+     credits:["wlodekm","hourfrozen"]
+     moderators: ["cheesewhisk3rs"] 
+     admins: ["viniciusqks", "erickqks_bot"]
+    },
     httpresponses: {
         404: "Desolate. {404}"
      },
