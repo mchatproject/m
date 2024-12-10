@@ -1,9 +1,11 @@
 // @deno-types="npm:@types/express@4.17.15"
 import express from "npm:express";
+import config from "./config.ts"
 import * as fs from "jsr:@std/fs"; // have to get an std to check if something exists goddamn
 import * as accounts from "./accounts.ts";
 
 const router = express.Router();
+const 404 = config.httpresponses['404'];
 
 type Post = {
   user: string;
@@ -60,7 +62,7 @@ router.get("/posts/:post", (req, res) => {
     if (found) {
       res.send(found);
     } else {
-      res.status(404).send("Desolate. {404}");
+      res.status(404).send(404);
     }
   }
 });
