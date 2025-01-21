@@ -18,7 +18,7 @@ type User = {
 type UserCreds = {
   user: string;
   token: string; // resets every time the password is reset
-  password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk
+  password: string; // maybe dont make this the actual password and instead make it a sha256 or smth idk << this was what i was planning
 }
 
 type Post = {
